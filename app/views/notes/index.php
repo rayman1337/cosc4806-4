@@ -1,4 +1,4 @@
-<?php require_once '../app/views/templates/header.php'; ?>
+<?php require_once 'app/views/templates/header.php'; ?>
 
 <h2>My Reminders</h2>
 <a href="/notes/create">+ Add Reminder</a>
@@ -13,4 +13,4 @@
 <?php endforeach; ?>
 </ul>
 
-<?php require_once '../app/views/templates/footer.php'; ?>
+<?php require_once 'app/views/templates/footer.php'; ?>

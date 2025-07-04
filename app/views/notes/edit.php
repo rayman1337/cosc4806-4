@@ -1,4 +1,4 @@
-<?php require_once '../app/views/templates/header.php'; ?>
+<?php require_once 'app/views/templates/header.php'; ?>
 
 <h2>Edit Reminder</h2>
 <form method="POST" action="">
@@ -8,4 +8,4 @@
     <button type="submit">Update</button>
 </form>
 
-<?php require_once '../app/views/templates/footer.php'; ?>
+<?php require_once 'app/views/templates/footer.php'; ?>

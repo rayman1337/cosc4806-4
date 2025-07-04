@@ -7,26 +7,20 @@ class Notes extends Controller {
         $this->noteModel = $this->model('Note');
     }
 
-    public function index() {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+public function index() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
-        if (!isset($_SESSION['user_id'])) header('Location: /login');
-
-        echo "Entered notes index<br>";
-
-        try {
-            $notes = $this->noteModel->getAllByUser($_SESSION['user_id']);
-            echo "<pre>";
-            var_dump($notes);
-            echo "</pre>";
-        } catch (Throwable $e) {
-            echo "<strong>Error:</strong> " . $e->getMessage();
-        }
-
+    if (!isset($_SESSION['user_id'])) {
+        header('Location: /login');
         exit;
     }
+
+    $notes = $this->noteModel->getAllByUser($_SESSION['user_id']);
+    $this->view('notes/index', ['notes' => $notes]);
+}
+
 
 
     public function create() {
