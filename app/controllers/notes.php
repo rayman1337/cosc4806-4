@@ -10,10 +10,11 @@ class Notes extends Controller {
     public function index() {
         session_start();
         if (!isset($_SESSION['user_id'])) header('Location: /login');
-
         $notes = $this->noteModel->getAllByUser($_SESSION['user_id']);
         $this->view('notes/index', ['notes' => $notes]);
     }
+
+
 
     public function create() {
         session_start();

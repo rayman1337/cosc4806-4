@@ -4,7 +4,7 @@ class Note {
 
     public function __construct() {
         require_once 'app/database.php';
-        $this->db = $conn;
+        $this->db = db_connect();
     }
 
     public function getAllByUser($userId) {
