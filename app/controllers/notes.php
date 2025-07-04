@@ -8,28 +8,53 @@ class Notes extends Controller {
     }
 
     public function index() {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         if (!isset($_SESSION['user_id'])) header('Location: /login');
-        $notes = $this->noteModel->getAllByUser($_SESSION['user_id']);
-        $this->view('notes/index', ['notes' => $notes]);
+
+        echo "Entered notes index<br>";
+
+        try {
+            $notes = $this->noteModel->getAllByUser($_SESSION['user_id']);
+            echo "<pre>";
+            var_dump($notes);
+            echo "</pre>";
+        } catch (Throwable $e) {
+            echo "<strong>Error:</strong> " . $e->getMessage();
+        }
+
+        exit;
     }
 
 
-
     public function create() {
-        session_start();
-        if (!isset($_SESSION['user_id'])) header('Location: /login');
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /login');
+            exit;
+        }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->noteModel->createNote($_SESSION['user_id'], $_POST['subject']);
             header('Location: /notes/index');
+            exit;
         } else {
             $this->view('notes/create');
         }
     }
 
+
+
     public function edit($id) {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         if (!isset($_SESSION['user_id'])) header('Location: /login');
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -43,7 +68,10 @@ class Notes extends Controller {
     }
 
     public function delete($id) {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         if (!isset($_SESSION['user_id'])) header('Location: /login');
 
         $this->noteModel->deleteNote($id);
